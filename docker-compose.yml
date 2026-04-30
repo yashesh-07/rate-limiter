@@ -1,0 +1,20 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app  # <--- This is the Volume!
+    depends_on:
+      - redis
+
+  redis:
+    image: "redis:alpine"
+    # We could add a named volume here for Redis persistence
+    volumes:
+      - redis_storage:/data
+
+volumes:
+  redis_storage:
